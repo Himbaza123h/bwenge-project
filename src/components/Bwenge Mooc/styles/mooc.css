@@ -1,0 +1,97 @@
+.mocc-text {
+    margin-top: 50px !important;
+}
+
+.mooc-title {
+    font-size: 36px;
+    color: #1BABE4;
+}
+
+.mooc-paragraph {
+    font-size: 17px;
+}
+
+.start-button {
+    width: 167px;
+    height: 39px;
+    top: 474px;
+    left: 94px;
+    border-radius: 3px;
+    font-size: 16px;
+    background-color: #3305AE;
+    color: #fff;
+    border: 2px solid #3305AE;
+}
+
+.banner {
+    max-width: 80%;
+    margin-top: -100px;
+}
+
+.active-tab {
+    width: 203px;
+    height: 38px;
+    border-radius: 6px;
+    color: #fff;
+    background-color: #1BABE4;
+    border: 2px solid #1BABE4;
+    margin-top: -18px !important;
+}
+
+.courses-card {
+    border-radius: 5px !important;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.mooc-banner {
+    width: 100%;
+    height: auto;
+}
+
+.mooc-banner-container {
+    position: relative;
+}
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-container {
+    color: white;
+    margin-right: 900px;
+    font-size: 16px;
+}
+
+.signup-btn {
+    width: 246px;
+    height: 46px;
+    border-radius: 7px;
+    background-color: #FC787A;
+    border: 2px solid #FC787A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000000;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27.84px;
+    margin-top: 3%;
+}
