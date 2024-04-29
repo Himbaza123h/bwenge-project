@@ -1,0 +1,39 @@
+.jumbotron {
+    margin-top: 18px;
+}
+.my-profile {
+    height: 29vh !important;
+}
+.course-card{
+    background: linear-gradient(45deg, #4099ff, #73b4ff);
+    border-radius: 12px;
+}
+.count-card {
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    height: 120px !important;
+    cursor: pointer;
+}
+
+.my-courses {
+    background-color: #007bff;
+    background: linear-gradient(45deg, #4099ff, #73b4ff);
+}
+
+.my-projects {
+    background-color: #28a745;
+    background: linear-gradient(45deg, #2ed8b6, #59e0c5);
+}
+
+.my-community {
+    background-color: #ffc107;
+    background: linear-gradient(45deg, #ffb64d, #ffcb80);
+}
+h2 {
+    font-size: 15px;
+    font-weight: 700;
+    font-family: system-ui;
+}

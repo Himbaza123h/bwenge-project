@@ -12,6 +12,9 @@ import ShortCourse from "./components/BwengeCourses/ShortCouse";
 import Courses from "./courses/Course";
 import MoocHome from "./components/Bwenge Mooc/MoocHome";
 import Mission from "./components/pages/Mission";
+import Project from "./components/pages/Project";
+import AccountHome from "./components/pages/Account/Home";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
 return (
@@ -30,6 +33,8 @@ return (
             <Route path="/mooc" element={<MoocHome />} />
             <Route path="/mission" element={<Mission />} />
             <Route path="/nsangiza" element={<NsangizaMainPage />} />
+            <Route path="account/home" element={<AccountHome />} />
+            <Route path="/project" element={<Project />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
         <Routes>
