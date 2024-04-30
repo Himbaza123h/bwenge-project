@@ -21,8 +21,17 @@ const Login = () => {
             })
                 .then((res) => {
                     console.log("Login:", res);
-                    if (res?.data?.status) {
+                    if (res?.data?.access_token) {
                         // Success and redirect
+                        // Save user info to localStorage
+                        localStorage.setItem("access_token", res.data.access_token);
+                        localStorage.setItem("refresh_token", res.data.refresh_token);
+                        localStorage.setItem("userEmail", res.data.email);
+                        localStorage.setItem("fullName", res.data.full_name);
+
+                        // Redirect to home page
+                        window.location.href = "/home"; // Replace "/home" with your home page URL
+
                     } else {
                         setError(res?.data?.detail || "Invalid credentials");
                     }
