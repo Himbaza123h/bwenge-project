@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import $ from "jquery";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FiLogOut } from "react-icons/fi";
 import { SiCitrix } from "react-icons/si";
 import anime from "animejs";
-import history from "../Redux/actions/history";
+// import history from "../Redux/actions/history";
 import Modal from "./Modal";
 import BwengeLogo from "./../imgs/Logowhite.jpg";
 import ProjectPng from "./../imgs/project.png";
@@ -86,7 +86,7 @@ const Header = () => {
                 </li>
                 <li>
                   <div className="loginSignupBTN">
-                    <button type="button" className="btni" onClick={(e) => setLoginModal(true)}>Login</button>
+                    <Link to="/login"><button type="button" className="btni">Login</button></Link>
                     <button type="button" className="btnii" onClick={(e) => setLoginModal(true)}>
                       <span className="button-text">SignUp</span>
                     </button>

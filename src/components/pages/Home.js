@@ -31,13 +31,65 @@ import slide from "./../../imgs/ai.jpeg";
 
 import "../styles/home.css";
 import "../styles/animate.css";
+import axios from '../../helpers/axios';
+import { useFormatDate } from '../../hooks';
 
 const Home = () => {
+    const [projectChoice, setprojectChoice] = useState("diaspora");
+    const [articles, setArticles] = useState([]);
+    const [articleErrorMsg, setArticleErrorMsg] = useState('');
+    const [isArticleLoading, setIsArticleLoading] = useState(false);
+
+    const formatDate = useFormatDate();
+
     useEffect(() => {
         document.title = "Bwenge Courses"
-    })
-    const [projectChoice, setprojectChoice] = useState("diaspora");
+    });
+    useEffect(() => {
+        getArticles()
+    }, []);
 
+    const getArticles = () => {
+
+        setArticleErrorMsg("");
+        setIsArticleLoading(true);
+
+        axios.get('/articles/')
+            .then((res) => {
+                setIsArticleLoading(false);
+                if (Array.isArray(res.data)) {
+                    const articles = res.data || []; // Ensure articles is an array
+                    setArticles(articles);
+                }
+                else {
+                    const errorMessage = res?.data?.message || "Failed to fetch articles. Please try again.";
+                    setArticleErrorMsg(errorMessage);
+                }
+            })
+            .catch((error) => {
+                setIsArticleLoading(false);
+                if (error.response) {
+                    // Handle server-side errors (e.g., validation errors)
+                    setArticleErrorMsg(error.response?.data?.message || "An error occurred. Please try again.");
+                } else if (error.request) {
+                    // Handle network-related errors (e.g., no response from server)
+                    setArticleErrorMsg("Failed to connect to the server. Please check your internet connection and try again.");
+                } else {
+                    // Handle other types of errors (e.g., unexpected errors)
+                    setArticleErrorMsg(error.message || "An unexpected error occurred. Please try again later.");
+                }
+                // console.error("Error updating product:", error);
+            });
+    };
+
+    const truncateText = (text) => {
+        // Check if the text length is greater than 2 lines (assuming each line has max 30 characters)
+        if (text.length > 60) {
+            // Truncate the text to 2 lines (60 characters)
+            return text.substring(0, 60) + '...';
+        }
+        return text;
+    };
     return (
 
         <div>
@@ -51,97 +103,41 @@ const Home = () => {
                 </div>
             </div>
             <div className="mainHome">
-                <section class="bwengeNews">
+                <section className="bwengeNews">
                     <div>
                         <div className="trending">
                             <img src={trending} alt="" srcSet="" />
                             <span className="trending-title">TRENDING</span>
                         </div>
                         <div className="row">
-                            <div className="col-md-3">
-                                <div class="card">
-                                    <img class="card-img-top" src={computer} alt="image" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Uburyo 10 wakorera $10 yawe kuri internet</b></h5>
-                                        <p class="card-text">Artificial Intelligence (AI) iri guhindura byihuse ubucuruzi
-                                            n’inganda kwisi yose</p>
-                                        <div>
-                                            <div className="button-container">
-                                                <a href="#" className="readmore btn">Read More</a>
-                                                <span className="date">2023-01-12</span>
-                                            </div>
-                                            <div className="icon-container">
-                                                <img src={like} alt="icon" />
-                                                <img src={eye} alt="icon" />
-                                                <img src={chatting} alt="icon" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div class="card">
-                                    <img class="card-img-top" src={skills} alt="Card image cap" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Uburyo 10 wakorera $10 yawe kuri internet</b></h5>
-                                        <p class="card-text">Artificial Intelligence (AI) iri guhindura byihuse ubucuruzi
-                                            n’inganda kwisi yose</p>
-                                        <div>
-                                            <div className="button-container">
-                                                <a href="#" className="readmore btn">Read More</a>
-                                                <span className="date">2023-01-12</span>
-                                            </div>
-                                            <div className="icon-container">
-                                                <img src={like} alt="icon" />
-                                                <img src={eye} alt="icon" />
-                                                <img src={chatting} alt="icon" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div class="card">
-                                    <img class="card-img-top" src={computer} alt="Card image cap" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Uburyo 10 wakorera $10 yawe kuri internet</b></h5>
-                                        <p class="card-text">Artificial Intelligence (AI) iri guhindura byihuse ubucuruzi
-                                            n’inganda kwisi yose</p>
-                                        <div>
-                                            <div className="button-container">
-                                                <a href="#" className="readmore btn">Read More</a>
-                                                <span className="date">2023-01-12</span>
-                                            </div>
-                                            <div className="icon-container">
-                                                <img src={like} alt="icon" />
-                                                <img src={eye} alt="icon" />
-                                                <img src={chatting} alt="icon" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div class="card">
-                                    <img class="card-img-top" src={skills} alt="Card image cap" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Uburyo 10 wakorera $10 yawe kuri internet</b></h5>
-                                        <p class="card-text">Artificial Intelligence (AI) iri guhindura byihuse ubucuruzi
-                                            n’inganda kwisi yose</p>
-                                        <div>
-                                            <div className="button-container">
-                                                <a href="#" className="readmore btn">Read More</a>
-                                                <span className="date">2023-01-12</span>
-                                            </div>
-                                            <div className="icon-container">
-                                                <img src={like} alt="icon" />
-                                                <img src={eye} alt="icon" />
-                                                <img src={chatting} alt="icon" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                isArticleLoading ? (<div>Loading trendings...</div>)
+                                    : articleErrorMsg != '' ? (<div>Error: {articleErrorMsg}</div>)
+                                        : articles.length > 0 ? (
+                                            articles.map((article) => (
+                                                <div className="col-md-3" key={article.id}>
+                                                    <div className="card">
+                                                        <img className="card-img-top" src={article.poster_image} alt="image" />
+                                                        <div className="card-body">
+                                                            <h5 className="card-title"><b>{article.title}</b></h5>
+                                                            <p className="card-text">{truncateText(article.description)}</p>
+                                                            <div>
+                                                                <div className="button-container">
+                                                                    <a href="#" className="readmore btn">Read Mores</a>
+                                                                    <span className="date">{formatDate(article.date)}</span>
+                                                                </div>
+                                                                <div className="icon-container">
+                                                                    <img src={like} alt="icon" />
+                                                                    <img src={eye} alt="icon" />
+                                                                    <img src={chatting} alt="icon" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))) :
+                                            (<div>No Trending</div>)
+                            }
                         </div>
                     </div>
 
@@ -151,66 +147,29 @@ const Home = () => {
                             <span className="headings-title">HEADINGS</span>
                         </div>
                         <div className="row">
-                            <div className="col-md-3">
-                                <div class="cards">
-                                    <img class="card-img-top" src={vision} alt="image" />
-                                    <div class="cards-body">
-                                        <span className="heading-date">2024-01-12</span>
-                                        <h5 class="card-title"><b>Fungura ubushobozi bwawe hamwe no kunoza intego zawe</b></h5>
-                                        <p class="card-text">Hagarika ibirangaza</p>
-                                        <div>
-                                            <div className="button-container">
-                                                <a href="#" className="readmore btn">Read More</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div class="cards">
-                                    <img class="card-img-top" src={coding} alt="image" />
-                                    <div class="cards-body">
-                                        <span className="heading-date">2024-01-12</span>
-                                        <h5 class="card-title"><b>Fungura ubushobozi bwawe hamwe no kunoza intego zawe</b></h5>
-                                        <p class="card-text">Hagarika ibirangaza</p>
-                                        <div>
-                                            <div className="button-container">
-                                                <a href="#" className="readmore btn">Read More</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div class="cards">
-                                    <img class="card-img-top" src={vision} alt="image" />
-                                    <div class="cards-body">
-                                        <span className="heading-date">2024-01-12</span>
-                                        <h5 class="card-title"><b>Fungura ubushobozi bwawe hamwe no kunoza intego zawe</b></h5>
-                                        <p class="card-text">Hagarika ibirangaza</p>
-                                        <div>
-                                            <div className="button-container">
-                                                <a href="#" className="readmore btn">Read More</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div class="cards">
-                                    <img class="card-img-top" src={coding} alt="image" />
-                                    <div class="cards-body">
-                                        <span className="heading-date">2024-01-12</span>
-                                        <h5 class="card-title"><b>Fungura ubushobozi bwawe hamwe no kunoza intego zawe</b></h5>
-                                        <p class="card-text">Hagarika ibirangaza</p>
-                                        <div>
-                                            <div className="button-container">
-                                                <a href="#" className="readmore btn">Read More</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                isArticleLoading ? (<div>Loading Heading...</div>)
+                                    : articleErrorMsg != '' ? (<div>Error: {articleErrorMsg}</div>)
+                                        : articles.length > 0 ? (
+                                            articles.slice().reverse().map((article) => (
+                                                <div className="col-md-3" key={article.id}>
+                                                    <div className="cards">
+                                                        <img className="card-img-top" src={article.poster_image} alt="image" />
+                                                        <div className="cards-body">
+                                                            <span className="heading-date">{formatDate(article.date)}</span>
+                                                            <h5 className="card-title"><b>{article.title}</b></h5>
+                                                            <p className="card-text">{truncateText(article.description)}</p>
+                                                            <div>
+                                                                <div className="button-container">
+                                                                    <a href="#" className="readmore btn">Read More</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))) :
+                                            (<div>No Headings</div>)
+                            }
                         </div>
                     </div>
 
@@ -219,30 +178,30 @@ const Home = () => {
 
                 <div className="storebook">
                     <div>
-                        <img src={bookstore} class="storeimg" alt="" srcSet="" />
+                        <img src={bookstore} className="storeimg" alt="" srcSet="" />
                         <span className="headingbookstore">BOOK STORE</span>
                     </div>
                 </div>
 
-                <div class=" book ">
-                    <div class="#">
-                        <img src={book1} class="bookimg " alt="" />
-                        <div class="p2 paragarph">Readmore</div>
+                <div className=" book ">
+                    <div className="#">
+                        <img src={book1} className="bookimg " alt="" />
+                        <div className="p2 paragarph">Readmore</div>
                     </div>
-                    <div class="#">
-                        <img src={book2} class=" #" alt="" />
-                        <div class="p2 paragarphii">Readmore</div>
-                    </div>
-
-                    <div class="bookimu">
-                        <img src={book2} class=" bookimg" alt="" />
-                        <div class="p2 paragarphii">Read more</div>
+                    <div className="#">
+                        <img src={book2} className=" #" alt="" />
+                        <div className="p2 paragarphii">Readmore</div>
                     </div>
 
+                    <div className="bookimu">
+                        <img src={book2} className=" bookimg" alt="" />
+                        <div className="p2 paragarphii">Read more</div>
+                    </div>
 
-                    <div class="bookimuu">
-                        <img src={book3} class="bookimg " alt="" />
-                        <div class="p2 paragarphi ">Readmore</div>
+
+                    <div className="bookimuu">
+                        <img src={book3} className="bookimg " alt="" />
+                        <div className="p2 paragarphi ">Readmore</div>
                     </div>
 
 
@@ -262,34 +221,34 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div class="row dushake py-5">
-                    <div class="col-md-4 h1p1">
-                        <div class="head1">DUSHAKASHAKE <br />DUSHAKIRA U RWANDA</div>
-                        <div class="p1">Get free access to the best projects <br /> from universities to <br />improve on
+                <div className="row dushake py-5">
+                    <div className="col-md-4 h1p1">
+                        <div className="head1">DUSHAKASHAKE <br />DUSHAKIRA U RWANDA</div>
+                        <div className="p1">Get free access to the best projects <br /> from universities to <br />improve on
                             your way up.</div>
                     </div>
-                    <div class="col-md-8">
-                        <div class="blogrw row py-4 ps-5">
-                            <div class="d1 col-md-4">
-                                <img src={twiyubake1} class=" imgp" alt="" />
-                                <div class="p2">Access best researches</div>
+                    <div className="col-md-8">
+                        <div className="blogrw row py-4 ps-5">
+                            <div className="d1 col-md-4">
+                                <img src={twiyubake1} className=" imgp" alt="" />
+                                <div className="p2">Access best researches</div>
                             </div>
-                            <div class="d1 col-md-4">
-                                <img src={twiyubake2} class=" imgp" alt="" />
-                                <div class="p2">Think and develop new ideas to supplement past research</div>
+                            <div className="d1 col-md-4">
+                                <img src={twiyubake2} className=" imgp" alt="" />
+                                <div className="p2">Think and develop new ideas to supplement past research</div>
                             </div>
-                            <div class="d1 col-md-4">
-                                <img src={twiyubake3} class=" imgp" alt="" />
-                                <div class="p2">Proudly graduates adding a stone on Rwandan research block</div>
+                            <div className="d1 col-md-4">
+                                <img src={twiyubake3} className=" imgp" alt="" />
+                                <div className="p2">Proudly graduates adding a stone on Rwandan research block</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
 
-                <div class="container py-0">
-                    <h3 class="text-center tableheading">VIEW THE PROJECTS FROM BWENGE PLATFORM</h3>
-                    <div class="ui tabular menu">
+                <div className="container py-0">
+                    <h3 className="text-center tableheading">VIEW THE PROJECTS FROM BWENGE PLATFORM</h3>
+                    <div className="ui tabular menu">
                         <a class={projectChoice == "diaspora" ? "item active" : "item"} onClick={(e) =>
                             setprojectChoice("diaspora")}>
                             Diaspora Projects
@@ -302,29 +261,29 @@ const Home = () => {
                     <div className="ui raised segment"> </div>
                 </div>
 
-                <div class=" ubumenyi ">
-                    <div class="col-md-4 pt-2  headubumenyi">
-                        <div class="head2">DUSANGIRE UBUMENYI <br />TWIYUBAKE</div>
-                        <div class="pa2 pt-5">Get access to courses created by<br /> best instructors and supplement it to your<br /> education for better career.</div>
+                <div className=" ubumenyi ">
+                    <div className="col-md-4 pt-2  headubumenyi">
+                        <div className="head2">DUSANGIRE UBUMENYI <br />TWIYUBAKE</div>
+                        <div className="pa2 pt-5">Get access to courses created by<br /> best instructors and supplement it to your<br /> education for better career.</div>
                     </div>
 
-                    <img src={courseHero} class=" imag3" alt="" srcset="" />
+                    <img src={courseHero} className=" imag3" alt="" srcset="" />
 
                 </div>
 
-                <section class="course">
-                    <div class="container">
+                <section className="course">
+                    <div className="container">
 
-                        <h1 class="text-center brawsetop k">BROWSE TOP CATEGORY COURSES</h1>
+                        <h1 className="text-center brawsetop k">BROWSE TOP CATEGORY COURSES</h1>
                         <hr />
                         <div className="row">
                             <div className="col-md-3">
-                                <div class="card courses">
-                                    <img class="card-img-top" src={computer} alt="image" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Introduction to Biometric Sensor</b></h5>
-                                        <p class="card-text">Engineering</p>
-                                        <p class="card-text">Alex Twishime</p>
+                                <div className="card courses">
+                                    <img className="card-img-top" src={computer} alt="image" />
+                                    <div className="card-body">
+                                        <h5 className="card-title"><b>Introduction to Biometric Sensor</b></h5>
+                                        <p className="card-text">Engineering</p>
+                                        <p className="card-text">Alex Twishime</p>
                                         <div>
                                             <div className="icon-container">
                                                 <img src={like} alt="icon" />12
@@ -336,12 +295,12 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className="col-md-3">
-                                <div class="card courses">
-                                    <img class="card-img-top" src={computer} alt="image" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Introduction to Biometric Sensor</b></h5>
-                                        <p class="card-text">Engineering</p>
-                                        <p class="card-text">Alex Twishime</p>
+                                <div className="card courses">
+                                    <img className="card-img-top" src={computer} alt="image" />
+                                    <div className="card-body">
+                                        <h5 className="card-title"><b>Introduction to Biometric Sensor</b></h5>
+                                        <p className="card-text">Engineering</p>
+                                        <p className="card-text">Alex Twishime</p>
                                         <div>
                                             <div className="icon-container">
                                                 <img src={like} alt="icon" />12
@@ -353,12 +312,12 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className="col-md-3">
-                                <div class="card courses">
-                                    <img class="card-img-top" src={computer} alt="image" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Introduction to Biometric Sensor</b></h5>
-                                        <p class="card-text">Engineering</p>
-                                        <p class="card-text">Alex Twishime</p>
+                                <div className="card courses">
+                                    <img className="card-img-top" src={computer} alt="image" />
+                                    <div className="card-body">
+                                        <h5 className="card-title"><b>Introduction to Biometric Sensor</b></h5>
+                                        <p className="card-text">Engineering</p>
+                                        <p className="card-text">Alex Twishime</p>
                                         <div>
                                             <div className="icon-container">
                                                 <img src={like} alt="icon" />12
@@ -370,12 +329,12 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className="col-md-3">
-                                <div class="card courses">
-                                    <img class="card-img-top" src={computer} alt="image" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Introduction to Biometric Sensor</b></h5>
-                                        <p class="card-text">Engineering</p>
-                                        <p class="card-text">Alex Twishime</p>
+                                <div className="card courses">
+                                    <img className="card-img-top" src={computer} alt="image" />
+                                    <div className="card-body">
+                                        <h5 className="card-title"><b>Introduction to Biometric Sensor</b></h5>
+                                        <p className="card-text">Engineering</p>
+                                        <p className="card-text">Alex Twishime</p>
                                         <div>
                                             <div className="icon-container">
                                                 <img src={like} alt="icon" />12
@@ -387,12 +346,12 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className="col-md-3">
-                                <div class="card courses">
-                                    <img class="card-img-top" src={computer} alt="image" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Introduction to Biometric Sensor</b></h5>
-                                        <p class="card-text">Engineering</p>
-                                        <p class="card-text">Alex Twishime</p>
+                                <div className="card courses">
+                                    <img className="card-img-top" src={computer} alt="image" />
+                                    <div className="card-body">
+                                        <h5 className="card-title"><b>Introduction to Biometric Sensor</b></h5>
+                                        <p className="card-text">Engineering</p>
+                                        <p className="card-text">Alex Twishime</p>
                                         <div>
                                             <div className="icon-container">
                                                 <img src={like} alt="icon" />12
@@ -404,12 +363,12 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className="col-md-3">
-                                <div class="card courses">
-                                    <img class="card-img-top" src={computer} alt="image" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Introduction to Biometric Sensor</b></h5>
-                                        <p class="card-text">Engineering</p>
-                                        <p class="card-text">Alex Twishime</p>
+                                <div className="card courses">
+                                    <img className="card-img-top" src={computer} alt="image" />
+                                    <div className="card-body">
+                                        <h5 className="card-title"><b>Introduction to Biometric Sensor</b></h5>
+                                        <p className="card-text">Engineering</p>
+                                        <p className="card-text">Alex Twishime</p>
                                         <div>
                                             <div className="icon-container">
                                                 <img src={like} alt="icon" />12
@@ -421,12 +380,12 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className="col-md-3">
-                                <div class="card courses">
-                                    <img class="card-img-top" src={computer} alt="image" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Introduction to Biometric Sensor</b></h5>
-                                        <p class="card-text">Engineering</p>
-                                        <p class="card-text">Alex Twishime</p>
+                                <div className="card courses">
+                                    <img className="card-img-top" src={computer} alt="image" />
+                                    <div className="card-body">
+                                        <h5 className="card-title"><b>Introduction to Biometric Sensor</b></h5>
+                                        <p className="card-text">Engineering</p>
+                                        <p className="card-text">Alex Twishime</p>
                                         <div>
                                             <div className="icon-container">
                                                 <img src={like} alt="icon" />12
@@ -438,12 +397,12 @@ const Home = () => {
                                 </div>
                             </div>
                             <div className="col-md-3">
-                                <div class="card courses">
-                                    <img class="card-img-top" src={computer} alt="image" />
-                                    <div class="card-body">
-                                        <h5 class="card-title"><b>Introduction to Biometric Sensor</b></h5>
-                                        <p class="card-text">Engineering</p>
-                                        <p class="card-text">Alex Twishime</p>
+                                <div className="card courses">
+                                    <img className="card-img-top" src={computer} alt="image" />
+                                    <div className="card-body">
+                                        <h5 className="card-title"><b>Introduction to Biometric Sensor</b></h5>
+                                        <p className="card-text">Engineering</p>
+                                        <p className="card-text">Alex Twishime</p>
                                         <div>
                                             <div className="icon-container">
                                                 <img src={like} alt="icon" />12
@@ -455,21 +414,21 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* <div class="ui link cards">{renderAllShortCourses}</div> */}
+                        {/* <div className="ui link cards">{renderAllShortCourses}</div> */}
                     </div>
                 </section>
 
-                <div class="partnerdivision">
-                    <h1 class="parheading ml-6">OUR PARTNERS</h1>
-                    <div class="partner-slideshow">
-                        <div class="partner">
-                            <div class="partner1">
+                <div className="partnerdivision">
+                    <h1 className="parheading ml-6">OUR PARTNERS</h1>
+                    <div className="partner-slideshow">
+                        <div className="partner">
+                            <div className="partner1">
                                 < img src={par1} className="partner1__img" alt="" />
                             </div>
-                            <div class="partner2">
+                            <div className="partner2">
                                 <img src={par2} className="partner2__img" alt="" />
                             </div>
-                            <div class="partner3">
+                            <div className="partner3">
                                 <img src={par3} className="partner3__img" alt="" />
                             </div>
                         </div>
@@ -477,26 +436,26 @@ const Home = () => {
                 </div>
 
                 <div className="contactus">
-                    <h2 class="h1-responsive font-weight-bold text-center my-4  contactushead">CONTACT US</h2>
+                    <h2 className="h1-responsive font-weight-bold text-center my-4  contactushead">CONTACT US</h2>
 
-                    <div class="col-md-3 text-center ">
+                    <div className="col-md-3 text-center ">
                         <div className="contactUs">
 
                             <div className="partners">
-                                <div class="partner11">
-                                    <img src={address1} class=" " alt="" />
+                                <div className="partner11">
+                                    <img src={address1} className=" " alt="" />
                                     <h1 className="heacontact">ADDRESS</h1>
                                     <p className="pacontact"> Kigali-Rwanda</p>
 
                                 </div>
-                                <div class="partner22">
-                                    <img src={mobile} class=" " alt="" />
+                                <div className="partner22">
+                                    <img src={mobile} className=" " alt="" />
                                     <h1 className="heacontact">PHONE NUMBER</h1>
                                     <p className="pacontact"> +25078851359</p>
 
                                 </div>
-                                <div class="partner33">
-                                    <img src={message1} class=" " alt="" />
+                                <div className="partner33">
+                                    <img src={message1} className=" " alt="" />
                                     <h1 className="heacontact">EMAIL</h1>
                                     <p className="pacontact"> bwengeorg@gmail.com</p>
                                 </div>
@@ -504,18 +463,18 @@ const Home = () => {
 
                         </div>
                     </div>
-                    <div class=" bothform">
-                        <div class="col-md-9   ">
+                    <div className=" bothform">
+                        <div className="col-md-9   ">
                             <form className="contactform">
-                                <div class="row  ">
-                                    <div class="col-6 ">
-                                        <div class="md-form mb-0 ">
+                                <div className="row  ">
+                                    <div className="col-6 ">
+                                        <div className="md-form mb-0 ">
                                             <input type="text" className="contactinput" placeholder="Your Name" />
                                         </div>
                                     </div>
 
-                                    <div class="col-6 ">
-                                        <div class="md-form mb-0">
+                                    <div className="col-6 ">
+                                        <div className="md-form mb-0">
                                             <input type="Email" placeholder="Your Email" className="contactinputs" />
 
                                         </div>
@@ -524,24 +483,24 @@ const Home = () => {
 
                                 </div><br />
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="md-form mb-0">
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="md-form mb-0">
                                             <input type="text" placeholder="Subject" className="subjectconctact" />
 
                                         </div>
                                     </div>
                                 </div><br />
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="md-form">
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="md-form">
                                             <textarea type="text" placeholder="Message" className="textarea md-textarea"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                            <div class="text-center text-md-left">
+                            <div className="text-center text-md-left">
                                 <div className="">
                                     <button id="sb-btn" className="subjectconctact btn-primary" onclick="document.getElementById('contact-form').submit();">Send Message</button>
                                 </div>
