@@ -94,7 +94,7 @@ const Login = () => {
                                 : error != '' ? (<p>{error}</p>)
                                     : (null)
                         }
-                        <button type="submit">Login</button>
+                        <button type="submit" className="login-btn">Login</button>
                     </form>
                     <div className="login-options">
                         <a href="#">Forgot password?</a>

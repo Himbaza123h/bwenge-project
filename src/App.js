@@ -13,9 +13,13 @@ import Courses from "./courses/Course";
 import MoocHome from "./components/Bwenge Mooc/MoocHome";
 import Mission from "./components/pages/Mission";
 import Project from "./components/pages/Project";
+import Article from "./components/pages/Article";
 import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
+import Verify from "./components/pages/Verify";
 import AccountHome from "./components/pages/Account/Home";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import "./components/styles/app.css";
 
 export default function App() {
     return (
@@ -36,7 +40,10 @@ export default function App() {
                         <Route path="/nsangiza" element={<NsangizaMainPage />} />
                         <Route path="account/home" element={<AccountHome />} />
                         <Route path="/project" element={<Project />} />
+                        <Route path="/article" element={<Article />} />
                         <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<Register />} />
+                        <Route path="/verify" element={<Verify />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                     <Routes>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Tabs, Tab, Button, Modal, Form } from 'react-bootstrap';
+import axios from '../../../helpers/axios';
 import userprofile from "../../../imgs/Logowhite.jpg";
 import "../../styles/account.css";
 
@@ -23,11 +24,22 @@ function CountCard({ title, count, bgColorClass }) {
 }
 function AccountHome() {
 
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
     const [activeTab, setActiveTab] = useState('myCoursess');
     const [showCourseModal, setShowCourseModal] = useState(false);
     const [showArticleModal, setShowArticleModal] = useState(false);
     const [showCommunityModal, setShowCommunityModal] = useState(false);
     const [showProjectModal, setShowProjectModal] = useState(false);
+
+    const [articleData, setArticleData] = useState({
+        title: '',
+        description: '',
+        categories: [],
+        author: userInfo.id
+    });
+
+    const handleCloseArticleModal = () => setShowArticleModal(false);
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
@@ -35,9 +47,9 @@ function AccountHome() {
     const handleCreateCourse = () => {
         setShowCourseModal(true);
     };
-    const handleCreateArticle = () => {
-        setShowArticleModal(true);
-    };
+    // const handleCreateArticle = () => {
+    //     setShowArticleModal(true);
+    // };
 
     const handleCreateCommunity = () => {
         setShowCommunityModal(true);
@@ -46,6 +58,77 @@ function AccountHome() {
     const handleCreateProject = () => {
         setShowProjectModal(true);
     };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setArticleData({
+            ...articleData,
+            [name]: value
+        });
+    };
+
+    const handleCategoryChange = (e) => {
+        const { checked, value } = e.target;
+        let updatedCategories = [...articleData.categories];
+
+        if (checked) {
+            updatedCategories.push(parseInt(value));
+        } else {
+            updatedCategories = updatedCategories.filter((category) => category !== parseInt(value));
+        }
+
+        setArticleData({
+            ...articleData,
+            categories: updatedCategories
+        });
+    };
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setArticleData({
+            ...articleData,
+            poster_image: file
+        });
+    };
+
+    // const handleCreateArticle = async () => {
+    //     setShowArticleModal(true);
+    //     console.log(articleData)
+    //     try {
+    //         const response = await axios.post('/add-article/', articleData);
+    //         console.log('Article created successfully:', response.data);
+    //         handleCloseArticleModal();
+    //     } catch (error) {
+    //         console.error('Error creating article:', error);
+    //         // Check if the error contains response data
+    //         if (error.response && error.response.data) {
+    //             console.error('Server responded with:', error.response.data);
+    //         }
+    //     }
+    // };
+
+    const handleCreateArticle = async () => {
+        setShowArticleModal(true);
+        try {
+            alert('test');
+            const formData = new FormData();
+            formData.append('title', articleData.title);
+            formData.append('description', articleData.description);
+            formData.append('categories', JSON.stringify(articleData.categories));
+            formData.append('poster_image', articleData.poster_image);
+
+            const response = await axios.post('/add-article/', formData);
+            console.log('Article created successfully:', response.data);
+            handleCloseArticleModal();
+        } catch (error) {
+            console.error('Error creating article:', error);
+            // Check if the error contains response data
+            if (error.response && error.response.data) {
+                console.error('Server responded with:', error.response.data);
+            }
+        }
+    };
+
+
 
 
     return (
@@ -59,10 +142,14 @@ function AccountHome() {
                                     <img src={userprofile} alt="Profile" className="my-profile img-fluid rounded-circle" />
                                 </Col>
                                 <Col md={3}>
-                                    <h3>Eric MUGISHA</h3>
-                                    <p>ericblessed88@gmail.com</p>
-                                    <p>phone: 0782643555</p>
-                                    <p>status: active</p>
+                                    {userInfo && (
+                                        <>
+                                            <h3>{userInfo.full_name}</h3>
+                                            <p>{userInfo.email}</p>
+                                            <p>phone: {userInfo.phone}</p>
+                                            <p>status: {userInfo.status}</p>
+                                        </>
+                                    )}
                                 </Col>
                                 <Col md={6}>
                                     <Row>
@@ -94,6 +181,7 @@ function AccountHome() {
                             <Button variant="success" onClick={handleCreateArticle}>
                                 <i className='fa fa-plus'></i>Create Article
                             </Button>
+
                             <div className="row">
                                 <div className="col-md-3">
                                     <div class="card">
@@ -236,29 +324,40 @@ function AccountHome() {
                     </Tabs>
                 </Col>
             </Row>
-            <Modal show={showArticleModal} onHide={() => setShowArticleModal(false)}>
+            <Modal show={showArticleModal} onHide={handleCloseArticleModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Create An Article</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <label>Article Title</label>
-                    <input type="text" className='form-control' placeholder='Tittle' />
-                    <label>Description</label>
-                    <input type='text' className='form-control' placeholder='Description' />
-                    <label>Category</label>
-                    <select className='form-control'>
-                        <option>Select Category</option>
-                        <option>Technolgy</option>
-                        <option>Science</option>
-                    </select>
-                    <label>Image</label>
-                    <input type='file' className='form-control' />
-                    <center>
-                        <br /><Button variant="primary">Submit</Button>
-                    </center>
+                    <Form>
+                        <Form.Group controlId="title">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control type="text" name="title" onChange={handleInputChange} />
+                        </Form.Group>
+                        <Form.Group controlId="description">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control as="textarea" rows={3} name="description" onChange={handleInputChange} />
+                        </Form.Group>
+                        <Form.Group controlId="poster_image">
+                            <Form.Label>Poster Image</Form.Label>
+                            <Form.Control type="file" name="poster_image" onChange={handleImageChange} />
+                        </Form.Group>
+                        <Form.Group controlId="categories">
+                            <Form.Label>Categories</Form.Label>
+                            <Form.Check
+                                type="checkbox"
+                                id="category-1"
+                                label="Mechanical Designer 2"
+                                value="1"
+                                onChange={handleCategoryChange}
+                            />
+                        </Form.Group>
+
+                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowArticleModal(false)}>Close</Button>
+                    <Button variant="secondary" onClick={handleCloseArticleModal}>Cancel</Button>
+                    <Button variant="primary" onClick={handleCreateArticle}>Create Article</Button>
                 </Modal.Footer>
             </Modal>
             <Modal show={showCourseModal} onHide={() => setShowCourseModal(false)}>

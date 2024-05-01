@@ -58,7 +58,7 @@ const Home = () => {
             .then((res) => {
                 setIsArticleLoading(false);
                 if (Array.isArray(res.data)) {
-                    const articles = res.data || []; // Ensure articles is an array
+                    const articles = res.data || []; 
                     setArticles(articles);
                 }
                 else {
@@ -69,23 +69,17 @@ const Home = () => {
             .catch((error) => {
                 setIsArticleLoading(false);
                 if (error.response) {
-                    // Handle server-side errors (e.g., validation errors)
                     setArticleErrorMsg(error.response?.data?.message || "An error occurred. Please try again.");
                 } else if (error.request) {
-                    // Handle network-related errors (e.g., no response from server)
                     setArticleErrorMsg("Failed to connect to the server. Please check your internet connection and try again.");
                 } else {
-                    // Handle other types of errors (e.g., unexpected errors)
                     setArticleErrorMsg(error.message || "An unexpected error occurred. Please try again later.");
                 }
-                // console.error("Error updating product:", error);
             });
     };
 
     const truncateText = (text) => {
-        // Check if the text length is greater than 2 lines (assuming each line has max 30 characters)
         if (text.length > 60) {
-            // Truncate the text to 2 lines (60 characters)
             return text.substring(0, 60) + '...';
         }
         return text;
@@ -136,7 +130,7 @@ const Home = () => {
                                                     </div>
                                                 </div>
                                             ))) :
-                                            (<div>No Trending</div>)
+                                            (<div><center>No Available Trending</center></div>)
                             }
                         </div>
                     </div>
@@ -168,7 +162,7 @@ const Home = () => {
                                                     </div>
                                                 </div>
                                             ))) :
-                                            (<div>No Headings</div>)
+                                            (<div><center>No Available Headings</center></div>)
                             }
                         </div>
                     </div>

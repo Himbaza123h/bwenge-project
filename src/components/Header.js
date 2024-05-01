@@ -47,7 +47,7 @@ const Header = () => {
             >
               <GiHamburgerMenu size={40} />
             </button>
-            <div className="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent" style={{ height: "7vh", marginLeft: "211px" }}>
+            <div className="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent" style={{ height: "7vh", marginLeft: "80px" }}>
               <ul className="navbar-nav ms-4 me-auto ulnavsBars">
                 <li className="nav-item itemu">
                   <Link to="/" className="nav-link">HOME</Link>
@@ -87,9 +87,11 @@ const Header = () => {
                 <li>
                   <div className="loginSignupBTN">
                     <Link to="/login"><button type="button" className="btni">Login</button></Link>
-                    <button type="button" className="btnii" onClick={(e) => setLoginModal(true)}>
-                      <span className="button-text">SignUp</span>
-                    </button>
+                    <Link to="/signup">
+                      <button type="button" className="btnii" onClick={(e) => setLoginModal(true)}>
+                        <span className="button-text">SignUp</span>
+                      </button>
+                    </Link>
                   </div>
                 </li>
               </ul>
