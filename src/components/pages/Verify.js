@@ -53,7 +53,7 @@ const VerifyOTPForm = () => {
                         <button type="submit" className="login-btn">Verify</button>
                     </form>
                     <div className="login-options">
-                        <span>Didn't receive an OTP? <a href="#">Resend</a></span>
+                        <span> didn&#39;t receive an OTP? <a href="#">Resend</a></span>
                     </div>
                 </div>
             </div>
