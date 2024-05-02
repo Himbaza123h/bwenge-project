@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from '../../helpers/axios';
 
 const VerifyOTPForm = () => {
     const [otp, setOtp] = useState('');
     const [logging, setLogging] = useState(false);
     const [error, setError] = useState('');
+    const navigate = useNavigate(); 
 
     const handleChange = (e) => {
         setOtp(e.target.value);
@@ -19,8 +21,7 @@ const VerifyOTPForm = () => {
             if (response.status) {
                 // Store user info in local storage
                 localStorage.setItem('userInfo', JSON.stringify(response.data.data.user));
-                // Redirect to home page
-                window.location.href = "/account/home";
+                navigate("/account/home");
             } else {
                 setError('Invalid response format');
             }

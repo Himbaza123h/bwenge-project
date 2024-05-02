@@ -47,9 +47,6 @@ function AccountHome() {
     const handleCreateCourse = () => {
         setShowCourseModal(true);
     };
-    // const handleCreateArticle = () => {
-    //     setShowArticleModal(true);
-    // };
 
     const handleCreateCommunity = () => {
         setShowCommunityModal(true);
@@ -84,11 +81,14 @@ function AccountHome() {
     };
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append('poster_image', file);
         setArticleData({
             ...articleData,
-            poster_image: file
+            poster_image: formData
         });
     };
+
 
     // const handleCreateArticle = async () => {
     //     setShowArticleModal(true);
@@ -109,25 +109,27 @@ function AccountHome() {
     const handleCreateArticle = async () => {
         setShowArticleModal(true);
         try {
-            alert('test');
             const formData = new FormData();
             formData.append('title', articleData.title);
             formData.append('description', articleData.description);
             formData.append('categories', JSON.stringify(articleData.categories));
             formData.append('poster_image', articleData.poster_image);
+            formData.append('author', userInfo.id);
+
+            // Log FormData before sending the request
+            console.log('FormData:', formData);
 
             const response = await axios.post('/add-article/', formData);
             console.log('Article created successfully:', response.data);
             handleCloseArticleModal();
         } catch (error) {
-            console.error('Error creating article:', error);
             // Check if the error contains response data
-            if (error.response && error.response.data) {
+            console.error('Error creating article:', error);
+            if (error.response?.data) {
                 console.error('Server responded with:', error.response.data);
             }
         }
     };
-
 
 
 
@@ -146,7 +148,7 @@ function AccountHome() {
                                         <>
                                             <h3>{userInfo.full_name}</h3>
                                             <p>{userInfo.email}</p>
-                                            <p>phone: {userInfo.phone}</p>
+                                            <p>phone: {userInfo.telephone}</p>
                                             <p>status: {userInfo.status}</p>
                                         </>
                                     )}
@@ -329,7 +331,7 @@ function AccountHome() {
                     <Modal.Title>Create An Article</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form enctype="multipart/form-data">
                         <Form.Group controlId="title">
                             <Form.Label>Title</Form.Label>
                             <Form.Control type="text" name="title" onChange={handleInputChange} />
@@ -352,7 +354,6 @@ function AccountHome() {
                                 onChange={handleCategoryChange}
                             />
                         </Form.Group>
-
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>

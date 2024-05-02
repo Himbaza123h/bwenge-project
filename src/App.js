@@ -40,7 +40,7 @@ export default function App() {
                         <Route path="/nsangiza" element={<NsangizaMainPage />} />
                         <Route path="account/home" element={<AccountHome />} />
                         <Route path="/project" element={<Project />} />
-                        <Route path="/article" element={<Article />} />
+                        <Route path="/article/:id" element={<Article />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<Register />} />
                         <Route path="/verify" element={<Verify />} />

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/auth.css";
 import { useState } from 'react';
 import axios from '../../helpers/axios';
@@ -15,6 +16,7 @@ const SignupForm = () => {
     });
     const [logging, setLogging] = useState(false);
     const [error, setError] = useState('');
+    const navigate = useNavigate(); 
 
     const handleChange = (e) => {
         setFormData({
@@ -34,9 +36,8 @@ const SignupForm = () => {
                 password: formData.password,
                 password2: formData.confirmPassword
             });
-            console.log('Response:', response); 
             console.log('User signed up successfully:', response.data);
-            window.location.href = "/verify";
+            navigate("/verify");
         } catch (err) {
             console.error('Error:', err); // Log the error object
             setError(err.response?.data?.error || 'An error occurred');

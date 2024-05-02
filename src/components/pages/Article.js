@@ -1,47 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from '../../helpers/axios';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faThumbsUp, faComment, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import computer from "./../../imgs/computer.png";
 
-
 const ArticlePage = () => {
     const { id } = useParams();
-
-    const article = {
-        id: id,
-        title: 'Sample Article Title',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.',
-        image: 'https://via.placeholder.com/300', // Sample image URL
-        postedDate: 'May 1, 2024'
-    };
-
-    // State for comment input
+    const [article, setArticle] = useState(null);
     const [comment, setComment] = useState('');
     const [showCommentInput, setShowCommentInput] = useState(false);
 
-    // Handle comment input change
+    useEffect(() => {
+        const fetchArticle = async () => {
+            try {
+                const response = await axios.get(`/article/${id}/`);
+                console.log(response.data);
+                setArticle(response.data);
+            } catch (error) {
+                console.error('Error fetching article:', error);
+            }
+        };
+
+        fetchArticle();
+    }, [id]);
+
     const handleCommentChange = (e) => {
         setComment(e.target.value);
     };
 
-    // Handle comment submission
     const handleSubmitComment = () => {
-        // You can add logic to submit the comment here
         console.log('Comment submitted:', comment);
-        // Clear comment input and hide comment input field
         setComment('');
         setShowCommentInput(false);
     };
 
+    if (!article) {
+        return <div>Loading article...</div>;
+    }
+
     return (
         <div className="container my-5">
-            <h2 className="mb-4">Article Page</h2>
+            <h1 className="mb-4">Article</h1>
             <div className="row">
                 <div className="col-md-8 offset-md-2">
                     <div className="card">
-                        <img src={computer} className="card-img-top" alt={article.title} />
+                        <img src={article.poster_image} className="card-img-top" alt={article.title} />
                         <div className="card-body">
                             <h2 className="card-title">{article.title}</h2>
                             <p className="card-text">{article.description}</p>
@@ -79,7 +84,7 @@ const ArticlePage = () => {
                                     </div>
                                 )}
                             </div>
-                            <small className="text-muted">Posted on {article.postedDate}</small>
+                            <small className="text-muted">Posted on {article.date}</small>
                         </div>
                     </div>
                 </div>

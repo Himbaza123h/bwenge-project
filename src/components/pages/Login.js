@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/auth.css";
 import { useState } from 'react';
 import axios from '../../helpers/axios';
@@ -8,6 +9,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [logging, setLogging] = useState(false);
     const [error, setError] = useState(null);
+    const navigate = useNavigate(); 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,7 +24,6 @@ const Login = () => {
                 .then((res) => {
                     console.log("Login:", res);
                     if (res?.data?.access_token) {
-                        // Success and redirect
                         // Save user info to localStorage
                         localStorage.setItem("access_token", res.data.access_token);
                         localStorage.setItem("refresh_token", res.data.refresh_token);
@@ -30,7 +31,7 @@ const Login = () => {
                         localStorage.setItem("fullName", res.data.full_name);
 
                         // Redirect to home page
-                        window.location.href = "/home"; // Replace "/home" with your home page URL
+                        navigate("/account/home");
 
                     } else {
                         setError(res?.data?.detail || "Invalid credentials");
@@ -40,16 +41,12 @@ const Login = () => {
                 .catch((error) => {
                     setLogging(false);
                     if (error.res) {
-                        // Handle server-side errors (e.g., validation errors)
                         setError(error.res?.data?.message || "An error occurred. Please try again.");
                     } else if (error.request) {
-                        // Handle network-related errors (e.g., no res from server)
                         setError("Failed to connect to the server. Please check your internet connection and try again.");
                     } else {
-                        // Handle other types of errors (e.g., unexpected errors)
                         setError(error.message || "An unexpected error occurred. Please try again later.");
                     }
-                    // console.error("Error updating product:", error);
                 });
             // Handle successful login, such as redirecting to another page
         } catch (error) {

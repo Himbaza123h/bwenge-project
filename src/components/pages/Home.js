@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import bwengeIntro from "./../../imgs/newcareer.png";
 import twiyubake1 from "./../../imgs/rw1.PNG";
 import twiyubake2 from "./../../imgs/rw2.PNG";
@@ -58,7 +59,7 @@ const Home = () => {
             .then((res) => {
                 setIsArticleLoading(false);
                 if (Array.isArray(res.data)) {
-                    const articles = res.data || []; 
+                    const articles = res.data || [];
                     setArticles(articles);
                 }
                 else {
@@ -117,7 +118,7 @@ const Home = () => {
                                                             <p className="card-text">{truncateText(article.description)}</p>
                                                             <div>
                                                                 <div className="button-container">
-                                                                    <a href="#" className="readmore btn">Read Mores</a>
+                                                                    <Link to={`/article/${article.id}`} className="readmore btn">Read More</Link>
                                                                     <span className="date">{formatDate(article.date)}</span>
                                                                 </div>
                                                                 <div className="icon-container">
