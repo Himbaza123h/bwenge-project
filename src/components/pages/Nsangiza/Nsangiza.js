@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaPeopleCarry } from "react-icons/fa";
-import history from "../../../Redux/actions/history";
 import { CgCalendarNext } from "react-icons/cg";
-// import { useNsangizaRequests, bookNsangiza } from "../Admin Panel/hooks/useAllNsangizas";
-import moment from "moment";
-import computer from "../../../imgs/computer.png";
 import meeting1 from "../../../imgs/meeting1.jpg";
 import meeting2 from "../../../imgs/meeting2.jpg";
 import meeting3 from "../../../imgs/meeting3.jpg";
@@ -32,24 +27,24 @@ const NsangizaMainPage = () => {
 
       return (
         <div>
-          <h3 class="ui header">
-            <i style={{ color: liveColor }} class="circle icon"></i> <div class="content">Aka kanya</div>
+          <h3 className="ui header">
+            <i style={{ color: liveColor }} className="circle icon"></i> <div className="content">Aka kanya</div>
           </h3>
           <div className="ui link cards">
 
               return (
                 <div
-                  class="ui card"
+                  className="ui card"
 
                 >
-                  <a class="image">
+                  <a className="image">
                     <img  height="155" width="240" />
                   </a>
-                  <div class="content">
-                    <a class="header" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "clip", width: "100%" }}>
+                  <div className="content">
+                    <a className="header" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "clip", width: "100%" }}>
                       {/* {item.title} */}
                     </a>
-                    <div class="meta">
+                    <div className="meta">
                       <a>Yatangiye 20:20</a>
                     </div>
                   </div>
@@ -62,29 +57,29 @@ const NsangizaMainPage = () => {
     const renderUpcoming = () => {
       return (
         <div>
-          <h3 class="ui header">
+          <h3 className="ui header">
             <CgCalendarNext size={30} />
-            <div class="content">Dutegereje</div>
+            <div className="content">Dutegereje</div>
           </h3>
           <div className="ui link cards">
             
               return (
-                <div class="ui card ms-3">
+                <div className="ui card ms-3">
                   {/* <a onClick={(e) => history.push(`/nsangiza/${item.id}`)} class="image"> */}
                     <img  height="155" width="240" />
                   {/* </a> */}
-                  <div class="content">
+                  <div className="content">
                     <a
                       class="header"
                       style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "clip", width: "100%" }}
                     >
                       {/* {item.title} */}
                     </a>
-                    <div class="meta">
+                    <div className="meta">
                       <a>Izatangira 20:20</a>
                     </div>
                   </div>
-                  <div class="extra content">
+                  <div className="extra content">
   
                   </div>
                 </div>
@@ -110,10 +105,10 @@ const NsangizaMainPage = () => {
           </div>
           <div className="row">
             <div className="col-md-4">
-              <div class="card meeting-card">
-                <img class="card-img-top" src={meeting1} alt="image" />
-                <div class="card-body">
-                  <h5 class="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
+              <div className="card meeting-card">
+                <img className="card-img-top" src={meeting1} alt="image" />
+                <div className="card-body">
+                  <h5 className="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
                   <div>
                     <div className="join-container">
                       <img src={time} alt="" />
@@ -125,10 +120,10 @@ const NsangizaMainPage = () => {
               </div>
             </div>
             <div className="col-md-4">
-              <div class="card meeting-card">
-                <img class="card-img-top" src={meeting2} alt="image" />
-                <div class="card-body">
-                  <h5 class="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
+              <div className="card meeting-card">
+                <img className="card-img-top" src={meeting2} alt="image" />
+                <div className="card-body">
+                  <h5 className="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
                   <div>
                     <div className="join-container">
                       <img src={time} alt="" />
@@ -140,10 +135,10 @@ const NsangizaMainPage = () => {
               </div>
             </div>
             <div className="col-md-4">
-              <div class="card meeting-card">
-                <img class="card-img-top" src={meeting3} alt="image" />
-                <div class="card-body">
-                  <h5 class="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
+              <div className="card meeting-card">
+                <img className="card-img-top" src={meeting3} alt="image" />
+                <div className="card-body">
+                  <h5 className="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
                   <div>
                     <div className="join-container">
                       <img src={time} alt="" />
@@ -162,10 +157,10 @@ const NsangizaMainPage = () => {
           </div>
           <div className="row">
             <div className="col-md-4">
-              <div class="card meeting-card">
-                <img class="card-img-top" src={meeting1} alt="image" />
-                <div class="card-body">
-                  <h5 class="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
+              <div className="card meeting-card">
+                <img className="card-img-top" src={meeting1} alt="image" />
+                <div className="card-body">
+                  <h5 className="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
                   <div>
                     <div className="join-container">
                       <img src={time} alt="" />
@@ -178,10 +173,10 @@ const NsangizaMainPage = () => {
               </div>
             </div>
             <div className="col-md-4">
-              <div class="card meeting-card">
-                <img class="card-img-top" src={meeting2} alt="image" />
-                <div class="card-body">
-                  <h5 class="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
+              <div className="card meeting-card">
+                <img className="card-img-top" src={meeting2} alt="image" />
+                <div className="card-body">
+                  <h5 className="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
                   <div>
                     <div className="join-container">
                       <img src={time} alt="" />
@@ -194,10 +189,10 @@ const NsangizaMainPage = () => {
               </div>
             </div>
             <div className="col-md-4">
-              <div class="card meeting-card">
-                <img class="card-img-top" src={meeting3} alt="image" />
-                <div class="card-body">
-                  <h5 class="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
+              <div className="card meeting-card">
+                <img className="card-img-top" src={meeting3} alt="image" />
+                <div className="card-body">
+                  <h5 className="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
                   <div>
                     <div className="join-container">
                       <img src={time} alt="" />
@@ -217,10 +212,10 @@ const NsangizaMainPage = () => {
           </div>
           <div className="row">
             <div className="col-md-4">
-              <div class="card meeting-card">
-                <img class="card-img-top" src={meeting1} alt="image" />
-                <div class="card-body">
-                  <h5 class="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
+              <div className="card meeting-card">
+                <img className="card-img-top" src={meeting1} alt="image" />
+                <div className="card-body">
+                  <h5 className="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
                   <div>
                     <div className="join-container">
                       <img src={time} alt="" />
@@ -233,10 +228,10 @@ const NsangizaMainPage = () => {
               </div>
             </div>
             <div className="col-md-4">
-              <div class="card meeting-card">
-                <img class="card-img-top" src={meeting2} alt="image" />
-                <div class="card-body">
-                  <h5 class="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
+              <div className="card meeting-card">
+                <img className="card-img-top" src={meeting2} alt="image" />
+                <div className="card-body">
+                  <h5 className="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
                   <div>
                     <div className="join-container">
                       <img src={time} alt="" />
@@ -249,10 +244,10 @@ const NsangizaMainPage = () => {
               </div>
             </div>
             <div className="col-md-4">
-              <div class="card meeting-card">
-                <img class="card-img-top" src={meeting3} alt="image" />
-                <div class="card-body">
-                  <h5 class="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
+              <div className="card meeting-card">
+                <img className="card-img-top" src={meeting3} alt="image" />
+                <div className="card-body">
+                  <h5 className="card-title"><b>MEETING TITLE: DESCRIPTION</b></h5><br /><br />
                   <div>
                     <div className="join-container">
                       <img src={time} alt="" />
