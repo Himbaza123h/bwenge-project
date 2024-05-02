@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import './../styles/about.css';
 import imageabout from "./../../imgs/aboutuspic.PNG"
 
@@ -9,7 +9,7 @@ const About = () => {
     return (
         <div className="aboutusbody">
             <div className="">
-                <img src={imageabout} class=" imageabout" alt="" />
+                <img src={imageabout} className=" imageabout" alt="" />
             </div>
             <div className="aboutword">
                 <div className="aboutheads">
@@ -28,7 +28,7 @@ const About = () => {
                         unified search and navigation of Rwandan  <br/> diaspora academic literature and projects ideas, best projects
                         from Rwandan Universities and <br/> colleges (project database),
                         Bwenge MOOC (Massive online open courses) from high school, high <br/> institution and national training program.<br/><br/>
-                        Furthermore, the forum stimulates the future generation's wisdom more
+                        Furthermore, the forum stimulates the future generations wisdom more
                         accurate, systematic, and <br/> completely explicit management and implicit
                         knowledge embedded in the specific process of work, <br/> creativity and learning.
                         We are thirsting to strengthen the research as key to develop our country <br/> through
