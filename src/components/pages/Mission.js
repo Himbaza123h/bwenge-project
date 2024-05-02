@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "../styles/missions.css";
-import imgmission from "../../imgs/picmission.PNG";
 
 const Mission = () => {
 useEffect(() => {

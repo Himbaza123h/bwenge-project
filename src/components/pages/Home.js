@@ -7,8 +7,6 @@ import twiyubake3 from "./../../imgs/rw3.PNG";
 import book1 from "./../../imgs/book3.png";
 import book2 from "./../../imgs/book2.png";
 import book3 from "./../../imgs/book1.png";
-import bookp from "./../../imgs/bookp.PNG";
-import skills from "./../../imgs/skills.jpg";
 import par1 from "./../../imgs/par1.png"
 import par2 from "./../../imgs/par2.png"
 import par3 from "./../../imgs/par3.png"
@@ -17,9 +15,6 @@ import message1 from "./../../imgs/message.PNG"
 import address1 from "./../../imgs/address.PNG"
 import courseHero from "./../../imgs/ubumenyi.png";
 import computer from "./../../imgs/computer.png";
-import vision from "./../../imgs/vision.jpg";
-import coding from "./../../imgs/coding.jpg";
-
 import trending from "./../../imgs/svg/trending.svg";
 import bookstore from "./../../imgs/svg/bookstore.svg";
 import headings from "./../../imgs/svg/headings.svg";
@@ -248,7 +243,7 @@ const Home = () => {
                             setprojectChoice("diaspora")}>
                             Diaspora Projects
                         </a>
-                        <a class={projectChoice == "university" ? "item active" : "item"} onClick={(e) =>
+                        <a className={projectChoice == "university" ? "item active" : "item"} onClick={(e) =>
                             setprojectChoice("university")}>
                             University Projects
                         </a>
@@ -262,7 +257,7 @@ const Home = () => {
                         <div className="pa2 pt-5">Get access to courses created by<br /> best instructors and supplement it to your<br /> education for better career.</div>
                     </div>
 
-                    <img src={courseHero} className=" imag3" alt="" srcset="" />
+                    <img src={courseHero} className=" imag3" alt="" srcSet="" />
 
                 </div>
 
@@ -497,7 +492,7 @@ const Home = () => {
                             </form>
                             <div className="text-center text-md-left">
                                 <div className="">
-                                    <button id="sb-btn" className="subjectconctact btn-primary" onclick="document.getElementById('contact-form').submit();">Send Message</button>
+                                    <button id="sb-btn" className="subjectconctact btn-primary" onClick="document.getElementById('contact-form').submit();">Send Message</button>
                                 </div>
                             </div>
                         </div>

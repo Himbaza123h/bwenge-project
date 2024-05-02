@@ -70,7 +70,7 @@ const NsangizaMainPage = () => {
                   {/* </a> */}
                   <div className="content">
                     <a
-                      class="header"
+                      className="header"
                       style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "clip", width: "100%" }}
                     >
                       {/* {item.title} */}
@@ -92,7 +92,7 @@ const NsangizaMainPage = () => {
       <div className="mx-3">
 
         <div className="">
-                <img src={imageabout} class=" imageabout" alt="" />
+                <img src={imageabout} className=" imageabout" alt="" />
         </div>
         <div className="nsangiza-button-container">
           <button className="nsangiza-btn"><img src={userdoc} alt="" />Request Nsangiza</button>
@@ -101,7 +101,7 @@ const NsangizaMainPage = () => {
         </div>
         <div className="live-container">
           <div className="meeting-title">
-            <span className="live-title">Live <i style={{ color: liveColor }} class="circle icon"></i></span>
+            <span className="live-title">Live <i style={{ color: liveColor }} className="circle icon"></i></span>
           </div>
           <div className="row">
             <div className="col-md-4">

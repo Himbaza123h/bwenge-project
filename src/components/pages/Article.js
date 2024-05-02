@@ -4,7 +4,6 @@ import axios from '../../helpers/axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faThumbsUp, faComment, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import computer from "./../../imgs/computer.png";
 
 const ArticlePage = () => {
     const { id } = useParams();
